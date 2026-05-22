@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminTable from "../shared/AdminTable";
-import { ADMIN_URLS } from "../../../../constants/urls/urls";
+import { ADMIN_URLS } from "../../../../constants/urls/Urls";
 import { axiosInstance } from "../../../../constants/urls/Urls";
 import AdminHeader from "../shared/AdminHeader";
 import Pagination from '../shared/Pagination';

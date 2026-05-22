@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import AdminHeader from '../shared/AdminHeader';
-import { ADMIN_URLS } from "../../../../constants/urls/urls";
+import { ADMIN_URLS } from "../../../../constants/urls/Urls";
 import { axiosInstance } from "../../../../constants/urls/Urls";
 import AdminTable from '../shared/AdminTable';
 import DeleteModal from '../shared/DeleteModal';

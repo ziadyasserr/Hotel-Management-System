@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../../../constants/urls/Urls";
-import { ADMIN_URLS } from "../../../../constants/urls/urls";
+import { ADMIN_URLS } from "../../../../constants/urls/Urls";
 import Select from "react-select";
 import { toast } from "sonner";
 
