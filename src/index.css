@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  --color-adminMainColor:#152C5B;
+}
+
+.css-dip3t8 {
+  background-color: var(--color-adminMainColor) !important;
+}
+
+.css-1t8x7v1 >.ps-menu-button:hover {
+    background-color: rgba(12, 17, 37, 0.4) !important;
+}
