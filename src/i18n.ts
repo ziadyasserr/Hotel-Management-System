@@ -25,4 +25,19 @@ i18n
     },
   });
 
+// Apply direction whenever language changes
+const applyDirection = (lang: string) => {
+  const dir = lang === "ar" ? "rtl" : "ltr";
+  document.documentElement.setAttribute("dir", dir);
+  document.documentElement.setAttribute("lang", lang);
+};
+
+// Apply on init
+applyDirection(i18n.language);
+
+// Apply on language change
+i18n.on("languageChanged", (lang) => {
+  applyDirection(lang);
+});
+
 export default i18n;

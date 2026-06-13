@@ -2,9 +2,11 @@ import { useState } from "react";
 import SideBar from "../../features/admin/components/shared/sideBar";
 import { Outlet } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 function MasterAdminLayout() {
     const [toggled, setToggled] = useState(false);
+    const { t } = useTranslation();
 
     return (
         <div className="flex min-h-screen w-full">
@@ -25,7 +27,7 @@ function MasterAdminLayout() {
                     >
                         <FaBars size={24} />
                     </button>
-                    <span className="ml-4 font-bold text-lg text-[#1F263E]">Admin Dashboard</span>
+                    <span className="ml-4 font-bold text-lg text-[#1F263E]">{t('adminDashboard')}</span>
                 </div>
 
                 {/* PAGE CONTENT */}

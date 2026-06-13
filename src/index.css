@@ -11,3 +11,28 @@
 .css-1t8x7v1 >.ps-menu-button:hover {
     background-color: rgba(12, 17, 37, 0.4) !important;
 }
+
+/* ===== RTL / LTR Support ===== */
+html {
+  transition: direction 0.2s ease;
+}
+
+[dir="rtl"] {
+  font-family: 'Cairo', 'Tajawal', 'Segoe UI', sans-serif;
+}
+
+[dir="ltr"] {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Fix sidebar arrow direction in RTL */
+[dir="rtl"] .ps-sidebar-root {
+  border-right: none;
+  border-left: 1px solid #374151;
+}
+
+/* Fix mobile menu full width in RTL */
+[dir="rtl"] nav .absolute {
+  left: auto;
+  right: 0;
+}
