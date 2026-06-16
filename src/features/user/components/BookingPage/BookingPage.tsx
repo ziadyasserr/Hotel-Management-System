@@ -4,7 +4,7 @@ import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import bookingImage from '../../../../assets/images/booking.png';
+import bookingImage from '/public/images/booking.webp';
 
 function BookingPage() {
   const [startDate, setStartDate] = useState('');
@@ -98,7 +98,10 @@ function BookingPage() {
                 <p className="text-[10px] text-gray-400 font-medium">{t('booking_trustedBy')}</p>
                 <h4 className="text-base font-bold text-gray-800">{t('booking_travelers')}</h4>
               </div>
-              <img src={bookingImage} alt="booking" className="relative z-10 w-[520px] h-[500px] object-cover rounded-[38px] shadow-[0_20px_60px_rgba(0,0,0,0.10)] transition-all duration-500 group-hover:scale-[1.02]" />
+              <img src="/images/booking.webp"
+                alt="booking"
+                fetchPriority="high"
+                className="relative z-10 w-[520px] h-[500px] object-cover rounded-[38px] shadow-[0_20px_60px_rgba(0,0,0,0.10)] transition-all duration-500 group-hover:scale-[1.02]" />
               <div className="absolute inset-0 rounded-[38px] bg-gradient-to-t from-black/10 via-transparent to-transparent z-10"></div>
             </div>
           </div>
