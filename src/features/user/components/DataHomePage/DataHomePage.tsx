@@ -10,6 +10,12 @@ import "swiper/css/pagination";
 function DataHomePage() {
     const { t } = useTranslation();
 
+    const getOptimizedUnsplashUrl = (url: string, width = 400) => {
+        if (!url || !url.includes("unsplash.com")) return url;
+        const baseUrl = url.split("?")[0];
+        return `${baseUrl}?auto=format&fit=crop&w=${width}&q=75`;
+    };
+
     const renderTitle = (key: string) => {
         const title = t(key);
         const parts = title.split("|");
@@ -342,7 +348,7 @@ function DataHomePage() {
     ];
 
     return (
-        <div className="">
+        <div className="bg-[#FAF9F6]">
             {/* SECTION 1: Houses with beauty backyard */}
             <section className="container mx-auto px-6 py-16">
                 <div className="text-center mb-12">
@@ -382,13 +388,16 @@ function DataHomePage() {
                             1024: { slidesPerView: 5 },
                         }}
                     >
-                        {backyardHouses.map((house) => (
+                        {backyardHouses.map((house, idx) => (
                             <SwiperSlide key={house.id}>
                                 <div className="group cursor-pointer">
                                     <div className="overflow-hidden rounded-3xl shadow-sm hover:shadow-md transition-shadow">
                                         <img
-                                            src={house.image}
+                                            src={getOptimizedUnsplashUrl(house.image, 400)}
                                             alt={house.name}
+                                            loading={idx < 3 ? "eager" : "lazy"}
+                                            fetchPriority={idx < 3 ? "high" : "low" as any}
+                                            decoding="async"
                                             className="w-full h-[220px] object-cover transition-all duration-500 group-hover:scale-105"
                                         />
                                     </div>
@@ -451,8 +460,10 @@ function DataHomePage() {
                                 <div className="group cursor-pointer">
                                     <div className="overflow-hidden rounded-3xl shadow-sm hover:shadow-md transition-shadow">
                                         <img
-                                            src={hotel.image}
+                                            src={getOptimizedUnsplashUrl(hotel.image, 400)}
                                             alt={hotel.name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-[220px] object-cover transition-all duration-500 group-hover:scale-105"
                                         />
                                     </div>
@@ -515,8 +526,10 @@ function DataHomePage() {
                                 <div className="group cursor-pointer">
                                     <div className="overflow-hidden rounded-3xl shadow-sm hover:shadow-md transition-shadow">
                                         <img
-                                            src={apt.image}
+                                            src={getOptimizedUnsplashUrl(apt.image, 400)}
                                             alt={apt.name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-[220px] object-cover transition-all duration-500 group-hover:scale-105"
                                         />
                                     </div>
@@ -579,8 +592,10 @@ function DataHomePage() {
                                 <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 flex flex-col h-full group">
                                     <div className="relative overflow-hidden">
                                         <img
-                                            src={ad.image}
+                                            src={getOptimizedUnsplashUrl(ad.image, 500)}
                                             alt={ad.name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-full h-[200px] object-cover transition-transform duration-500 group-hover:scale-105"
                                         />
                                         <span className="absolute top-4 left-4 bg-red-500 text-white text-xs font-bold px-3.5 py-1.5 rounded-full shadow">
@@ -676,8 +691,10 @@ function DataHomePage() {
                                     </p>
                                     <div className="flex items-center gap-4 border-t border-gray-50 pt-6 mt-auto">
                                         <img
-                                            src={item.image}
+                                            src={getOptimizedUnsplashUrl(item.image, 100)}
                                             alt={item.name}
+                                            loading="lazy"
+                                            decoding="async"
                                             className="w-14 h-14 rounded-full object-cover border-2 border-white ring-4 ring-gray-100"
                                         />
                                         <div>
