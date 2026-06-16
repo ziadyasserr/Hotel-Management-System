@@ -3,6 +3,7 @@ import { CiCalendarDate } from 'react-icons/ci';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'sonner';
 import bookingImage from '../../../../assets/images/booking.png';
 
 function BookingPage() {
@@ -16,7 +17,10 @@ function BookingPage() {
   const decreaseCapacity = () => { if (capacity > 1) setCapacity((prev) => prev - 1); };
 
   const handleExplore = () => {
-    if (!startDate || !endDate) { alert(t('booking_selectDates')); return; }
+    if (!startDate || !endDate) {
+      toast.error(t('booking_selectDates'));
+      return;
+    }
     navigate(`/explore?startDate=${startDate}&endDate=${endDate}&capacity=${capacity}`);
   };
 
@@ -45,40 +49,40 @@ function BookingPage() {
                 {/* Dates */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-gray-700">{t('booking_checkIn')}</label>
+                    <label htmlFor="check-in-date" className="text-xs font-semibold text-gray-700">{t('booking_checkIn')}</label>
                     <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3 transition-all duration-300 focus-within:border-[var(--color-adminMainColor)]">
                       <CiCalendarDate className="text-lg text-[var(--color-adminMainColor)] flex-shrink-0" />
-                      <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-transparent outline-none w-full text-sm text-gray-700" />
+                      <input id="check-in-date" type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-transparent outline-none w-full text-sm text-gray-700 font-medium" />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-gray-700">{t('booking_checkOut')}</label>
+                    <label htmlFor="check-out-date" className="text-xs font-semibold text-gray-700">{t('booking_checkOut')}</label>
                     <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3 transition-all duration-300 focus-within:border-[var(--color-adminMainColor)]">
                       <CiCalendarDate className="text-lg text-[var(--color-adminMainColor)] flex-shrink-0" />
-                      <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-transparent outline-none w-full text-sm text-gray-700" />
+                      <input id="check-out-date" type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-transparent outline-none w-full text-sm text-gray-700 font-medium" />
                     </div>
                   </div>
                 </div>
 
                 {/* Guests */}
                 <div className="space-y-2">
-                  <label className="text-xs font-semibold text-gray-700">{t('booking_guests')}</label>
+                  <span className="text-xs font-semibold text-gray-700 block">{t('booking_guests')}</span>
                   <div className="flex items-center justify-between bg-gray-50 border border-gray-100 rounded-2xl px-5 py-3">
-                    <button onClick={decreaseCapacity} className="w-9 h-9 rounded-full bg-white border border-gray-100 hover:scale-105 transition-all duration-300 flex items-center justify-center">
+                    <button type="button" onClick={decreaseCapacity} aria-label="Decrease guests count" className="w-9 h-9 rounded-full bg-white border border-gray-100 hover:scale-105 transition-all duration-300 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[var(--color-adminMainColor)]">
                       <FaMinus className="text-gray-600 text-[10px]" />
                     </button>
-                    <div className="text-center">
+                    <div className="text-center select-none">
                       <h3 className="text-lg font-bold text-gray-800">{capacity}</h3>
                       <p className="text-[11px] text-gray-400">{t('booking_guests')}</p>
                     </div>
-                    <button onClick={increaseCapacity} className="w-9 h-9 rounded-full bg-[var(--color-adminMainColor)] text-white hover:scale-105 transition-all duration-300 flex items-center justify-center shadow-md">
+                    <button type="button" onClick={increaseCapacity} aria-label="Increase guests count" className="w-9 h-9 rounded-full bg-[var(--color-adminMainColor)] text-white hover:scale-105 transition-all duration-300 flex items-center justify-center shadow-md focus:outline-none focus:ring-2 focus:ring-[var(--color-adminMainColor)]">
                       <FaPlus className="text-xs" />
                     </button>
                   </div>
                 </div>
 
                 {/* Button */}
-                <button onClick={handleExplore} className="w-full py-3 rounded-2xl bg-[var(--color-adminMainColor)] text-white text-sm font-semibold shadow-md hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <button onClick={handleExplore} className="w-full py-3 rounded-2xl bg-[var(--color-adminMainColor)] text-white text-sm font-semibold shadow-md hover:-translate-y-1 hover:shadow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[var(--color-adminMainColor)] focus:ring-offset-2">
                   {t('booking_exploreBtn')}
                 </button>
               </div>

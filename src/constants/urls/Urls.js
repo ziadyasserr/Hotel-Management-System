@@ -71,8 +71,6 @@ export const USER_URLS = {
     ////////////////////////////////////////////////////////////////////////////
     CREATE_COMMENT:"/portal/room-comments",
     CREATE_REVIEW:"/portal/room-reviews",
-
-
 };
 
 

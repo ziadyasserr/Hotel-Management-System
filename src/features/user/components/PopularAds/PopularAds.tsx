@@ -38,6 +38,8 @@ export default function PopularAds() {
         }
     };
 
+    const validAds = ads.filter((ad) => ad && ad.room);
+
     if (loading) {
         return (
             <div className="p-6 flex items-center justify-center min-h-[500px] text-gray-500">
@@ -59,9 +61,9 @@ export default function PopularAds() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {ads.slice(0, 6).map((ad) => (
+                {validAds.slice(0, 6).map((ad) => (
                     <div key={ad._id} className="relative overflow-hidden rounded-2xl group shadow-lg h-[320px] bg-white border border-gray-100">
-                        <img src={ad.room.images?.[0] || "https://via.placeholder.com/600"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" alt="Room" />
+                        <img src={ad.room.images?.[0] || "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" alt={`${t('explore_room')} ${ad.room.roomNumber}`} />
 
                         <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-gray-900 px-4 py-1.5 rounded-full font-bold shadow-lg text-sm z-10 flex items-center gap-1">
                             <span className="text-[var(--color-adminMainColor)]">${ad.room.price}</span> {t('explore_perNight')}
@@ -71,11 +73,11 @@ export default function PopularAds() {
 
                         <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 z-20">
                             {isUserRole && (
-                                <button onClick={() => handleAddToFavorites(ad.room._id)} className="bg-white/20 hover:bg-white/40 text-white p-4 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-110" title={t('explore_addFavorite')}>
+                                <button onClick={() => handleAddToFavorites(ad.room._id)} className="bg-white/20 hover:bg-white/40 text-white p-4 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white" title={t('explore_addFavorite')} aria-label={t('explore_addFavorite')}>
                                     <FaHeart size={20} />
                                 </button>
                             )}
-                            <button onClick={() => navigate(`/room-details/${ad.room._id}`)} className="bg-[var(--color-adminMainColor)] hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110" title={t('explore_viewDetails')}>
+                            <button onClick={() => navigate(`/room-details/${ad.room._id}`)} className="bg-[var(--color-adminMainColor)] hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white" title={t('explore_viewDetails')} aria-label={t('explore_viewDetails')}>
                                 <FaEye size={20} />
                             </button>
                         </div>

@@ -57,7 +57,7 @@ function FavoriteRoom() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {favorites.map((room) => (
                         <div key={room._id} className="relative overflow-hidden rounded-2xl group shadow-lg h-[300px]">
-                            <img src={room.images?.[0] || "https://via.placeholder.com/600"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" alt={`${t('explore_room')} ${room.roomNumber}`} />
+                            <img src={room.images?.[0] || "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" alt={`${t('explore_room')} ${room.roomNumber}`} />
 
                             <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-gray-900 px-4 py-1.5 rounded-full font-bold shadow-lg text-sm z-10 flex items-center gap-1">
                                 <span className="text-[var(--color-adminMainColor)]">${room.price}</span> {t('explore_perNight')}
@@ -66,10 +66,10 @@ function FavoriteRoom() {
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
 
                             <div className="absolute inset-0 flex items-center justify-center gap-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0 z-20">
-                                <button onClick={() => handleRemoveFavorite(room._id)} className="bg-white/20 hover:bg-white/40 text-red-400 hover:text-red-500 p-4 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-110" title={t('fav_removeTitle')}>
+                                <button onClick={() => handleRemoveFavorite(room._id)} className="bg-white/20 hover:bg-white/40 text-red-400 hover:text-red-500 p-4 rounded-full backdrop-blur-sm transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white" title={t('fav_removeTitle')} aria-label={t('fav_removeTitle')}>
                                     <FaTrash size={20} />
                                 </button>
-                                <button onClick={() => navigate(`/room-details/${room._id}`)} className="bg-[var(--color-adminMainColor)] hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110" title={t('explore_viewDetails')}>
+                                <button onClick={() => navigate(`/room-details/${room._id}`)} className="bg-[var(--color-adminMainColor)] hover:bg-blue-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-white" title={t('explore_viewDetails')} aria-label={t('explore_viewDetails')}>
                                     <FaEye size={20} />
                                 </button>
                             </div>

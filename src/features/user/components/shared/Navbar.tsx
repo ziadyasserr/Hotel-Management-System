@@ -36,25 +36,22 @@ function Navbar() {
           cation.
         </Link>
 
-        {/* Desktop Nav - centered */}
-        <div className="hidden md:flex items-center gap-8 flex-1 justify-center">
-          {navLinks.map((link) => (
+      
+
+        {/* Right side - fixed width to prevent shifting */}
+        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-semibold text-[15px] transition-colors duration-300 whitespace-nowrap ${
-                isActive(link.path)
+              className={`font-semibold text-[15px] transition-colors duration-300 whitespace-nowrap ${isActive(link.path)
                   ? 'text-[var(--color-adminMainColor)]'
                   : 'text-gray-500 hover:text-gray-900'
-              }`}
+                }`}
             >
               {link.name}
             </Link>
           ))}
-        </div>
-
-        {/* Right side - fixed width to prevent shifting */}
-        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
           <LanguageToggle variant="pill" />
 
           {isAuthenticated ? (
@@ -105,11 +102,10 @@ function Navbar() {
               key={link.path}
               to={link.path}
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`font-semibold text-lg ${
-                isActive(link.path)
+              className={`font-semibold text-lg ${isActive(link.path)
                   ? 'text-[var(--color-adminMainColor)]'
                   : 'text-gray-600'
-              }`}
+                }`}
             >
               {link.name}
             </Link>
