@@ -1,18 +1,31 @@
 import { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../../../store/hooks';
+
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
+import { logout } from '../../../../store/slices/authSlice';
 import LanguageToggle from '../../../../shared/components/LanguageToggle/LanguageToggle';
 
 function Navbar() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const { user, isAuthenticated } = useAppSelector((state) => state.auth);
+
   const isUser = isAuthenticated && user?.role === 'user';
+
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t } = useTranslation();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    dispatch(logout());
+    navigate('/');
+  };
 
   const navLinks = [
     { name: t('nav_home'), path: '/' },
@@ -26,8 +39,7 @@ function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white/60 backdrop-blur-md transition-all duration-300 px-6">
       <div className="container mx-auto flex items-center justify-between h-16">
-
-        {/* Logo - fixed width to prevent shifting */}
+        {/* Logo */}
         <Link
           to="/"
           className="text-3xl font-extrabold tracking-tighter text-gray-900 flex items-center gap-1 hover:opacity-80 transition flex-shrink-0"
@@ -36,32 +48,42 @@ function Navbar() {
           cation.
         </Link>
 
-      
-
-        {/* Right side - fixed width to prevent shifting */}
-        <div className="hidden md:flex items-center gap-3 flex-shrink-0">
-            {navLinks.map((link) => (
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-4 flex-shrink-0">
+          {navLinks.map((link) => (
             <Link
               key={link.path}
               to={link.path}
-              className={`font-semibold text-[15px] transition-colors duration-300 whitespace-nowrap ${isActive(link.path)
+              className={`font-semibold text-[15px] transition-colors duration-300 whitespace-nowrap ${
+                isActive(link.path)
                   ? 'text-[var(--color-adminMainColor)]'
                   : 'text-gray-500 hover:text-gray-900'
-                }`}
+              }`}
             >
               {link.name}
             </Link>
           ))}
+
           <LanguageToggle variant="pill" />
 
           {isAuthenticated ? (
-            <div className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">
-              <div className="w-8 h-8 rounded-full bg-[var(--color-adminMainColor)] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">
-                {user?.name?.charAt(0).toUpperCase() || 'U'}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 bg-gray-50 px-4 py-2 rounded-full border border-gray-100">
+                <div className="w-8 h-8 rounded-full bg-[var(--color-adminMainColor)] text-white flex items-center justify-center font-bold text-sm">
+                  {user?.name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+
+                <span className="font-semibold text-gray-700 text-sm whitespace-nowrap">
+                  {user?.name || 'User'}
+                </span>
               </div>
-              <span className="font-semibold text-gray-700 text-sm whitespace-nowrap">
-                {user?.name || 'User'}
-              </span>
+
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 rounded-full border border-red-100 text-red-500 font-semibold text-sm hover:bg-red-50 transition-all duration-300"
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div className="flex items-center gap-2">
@@ -71,6 +93,7 @@ function Navbar() {
               >
                 {t('nav_signUp')}
               </Link>
+
               <Link
                 to="/login"
                 className="text-black px-5 py-2 rounded-full font-bold hover:bg-gray-100 transition-all text-sm whitespace-nowrap"
@@ -81,9 +104,10 @@ function Navbar() {
           )}
         </div>
 
-        {/* Mobile: Language toggle + Menu button */}
+        {/* Mobile */}
         <div className="md:hidden flex items-center gap-3 flex-shrink-0">
           <LanguageToggle variant="pill" />
+
           <button
             className="text-gray-600 text-2xl p-1"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -102,18 +126,35 @@ function Navbar() {
               key={link.path}
               to={link.path}
               onClick={() => setIsMobileMenuOpen(false)}
-              className={`font-semibold text-lg ${isActive(link.path)
+              className={`font-semibold text-lg ${
+                isActive(link.path)
                   ? 'text-[var(--color-adminMainColor)]'
                   : 'text-gray-600'
-                }`}
+              }`}
             >
               {link.name}
             </Link>
           ))}
+
           <div className="h-px w-full bg-gray-100 my-2"></div>
+
           {isAuthenticated ? (
-            <div className="font-semibold text-gray-700 text-lg">
-              {t('nav_hello')}, {user?.name || 'User'}
+            <div className="flex flex-col gap-3">
+              <div className="font-semibold text-gray-700 text-lg">
+                {t('nav_hello')}, {user?.name || 'User'}
+              </div>
+
+              <button
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  dispatch(logout());
+                  navigate('/');
+                  setIsMobileMenuOpen(false);
+                }}
+                className="text-left text-red-500 font-semibold text-lg"
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -124,6 +165,7 @@ function Navbar() {
               >
                 {t('nav_logIn')}
               </Link>
+
               <Link
                 to="/register"
                 onClick={() => setIsMobileMenuOpen(false)}

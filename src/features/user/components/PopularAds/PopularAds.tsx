@@ -63,7 +63,16 @@ export default function PopularAds() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {validAds.slice(0, 6).map((ad) => (
                     <div key={ad._id} className="relative overflow-hidden rounded-2xl group shadow-lg h-[320px] bg-white border border-gray-100">
-                        <img src={ad.room.images?.[0] || "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" alt={`${t('explore_room')} ${ad.room.roomNumber}`} />
+                        <img
+                            src={ad.room.images?.[0] || "https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=800"}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                            alt={`${t('explore_room')} ${ad.room.roomNumber}`}
+                            loading="lazy"
+                            decoding="async"
+                            width={400}
+                            height={320}
+                        />
+
 
                         <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md text-gray-900 px-4 py-1.5 rounded-full font-bold shadow-lg text-sm z-10 flex items-center gap-1">
                             <span className="text-[var(--color-adminMainColor)]">${ad.room.price}</span> {t('explore_perNight')}

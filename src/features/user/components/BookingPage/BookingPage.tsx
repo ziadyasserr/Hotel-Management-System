@@ -4,7 +4,6 @@ import { FaMinus, FaPlus } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
-import bookingImage from '/public/images/booking.webp';
 
 function BookingPage() {
   const [startDate, setStartDate] = useState('');
